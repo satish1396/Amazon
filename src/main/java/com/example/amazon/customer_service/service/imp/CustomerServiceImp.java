@@ -32,8 +32,6 @@ public class CustomerServiceImp implements CustomerService {
     CustomerInfoRepository customerInfoRepository;
     ValidationService validationService;
     @Autowired
-    ObjectMapper objectMapper;
-    @Autowired
     CustomerServiceImp(final CustomerInfoRepository customerInfoRepository,ValidationService validationService){
         this.customerInfoRepository = customerInfoRepository;
         this.validationService = validationService;
@@ -62,6 +60,7 @@ public class CustomerServiceImp implements CustomerService {
                 .status(Status.ACTIVE)
                 .address(requestDto.getAddress())
                 .lastName(requestDto.getLastName())
+                .firstName(requestDto.getFirstName())
                 .build();
         customerInfoRepository.save(customerInfo);
     }
@@ -71,18 +70,22 @@ public class CustomerServiceImp implements CustomerService {
         log.info("Fetch customer info for customerHashId: {}",customerHashId);
         CustomerInfoResponseDto responseDto = new CustomerInfoResponseDto();
         try {
-            Optional<CustomerInfo> customerInfo = customerInfoRepository.findByCustomerHashId(customerHashId);
-
-            if (!customerInfo.isPresent()) {
+            CustomerInfo customerInfo = customerInfoRepository.findByCustomerHashId(customerHashId);
+            ObjectMapper objectMapper = new ObjectMapper();
+            if (Objects.isNull(customerInfo)) {
                 log.error("User not found for customerHashId: {}", customerHashId);
                 throw new ValidationException("User not found");
             }
-            responseDto = objectMapper.readValue((DataInput) customerInfo.get(), CustomerInfoResponseDto.class);
+
+            responseDto.setEmail(customerInfo.getEmail());
+            responseDto.setStatus(customerInfo.getStatus());
+            responseDto.setFirstName(customerInfo.getFirstName());
+            responseDto.setLastName(customerInfo.getLastName());
+            responseDto.setMobileNo(customerInfo.getMobileNo());
+
         }catch (ValidationException e){
             log.error(e.getMessage(),e);
-            new ValidationException(e.getMessage());
-        }catch (IOException ex){
-            throw new BitzException(ex.getMessage());
+            throw new ValidationException(e.getMessage());
         }catch (Exception e){
             log.error("Error while fetching the customer Info");
             throw new BitzException(e.getMessage());

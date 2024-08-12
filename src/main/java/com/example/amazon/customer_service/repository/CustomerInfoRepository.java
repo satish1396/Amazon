@@ -11,7 +11,7 @@ public interface CustomerInfoRepository extends JpaRepository<CustomerInfo, Long
 
     Optional<CustomerInfo> findByMobileNoAndEmail(String mobileNo, String email);
 
-    Optional<CustomerInfo> findByCustomerHashId(String customerHashId);
+    CustomerInfo findByCustomerHashId(String customerHashId);
 
     Optional<CustomerInfo> findByCustomerHashIdAndEmail(String customerHashId, String email);
 
