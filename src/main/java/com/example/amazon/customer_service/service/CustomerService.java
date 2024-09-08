@@ -7,9 +7,11 @@ import com.example.amazon.customer_service.response.CustomerInfoResponseDto;
 import java.io.IOException;
 
 public interface CustomerService {
-    public String addCustomer(AddCustomerRequestDto requestDto);
+    String addCustomer(AddCustomerRequestDto requestDto);
 
-    public CustomerInfoResponseDto getCustomerInfo(String customerHashId);
+    CustomerInfoResponseDto getCustomerInfo(String customerHashId);
 
-    public String updateCustomerInfo(UpdateCustomerInfo requestDto);
+    String updateCustomerInfo(UpdateCustomerInfo requestDto);
+
+    String blockCustomer(String customerId);
 }

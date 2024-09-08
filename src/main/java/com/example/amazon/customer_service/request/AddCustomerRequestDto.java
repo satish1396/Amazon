@@ -3,7 +3,6 @@ package com.example.amazon.customer_service.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
 public class AddCustomerRequestDto {

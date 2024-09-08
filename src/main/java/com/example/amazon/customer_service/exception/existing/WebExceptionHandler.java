@@ -1,6 +1,6 @@
 package com.example.amazon.customer_service.exception.existing;
 
-import com.example.amazon.customer_service.ApiResponse;
+import com.example.amazon.customer_service.response.ApiResponse;
 import com.example.amazon.customer_service.exception.BitzException;
 import com.example.amazon.customer_service.exception.ValidationException;
 import lombok.extern.slf4j.Slf4j;

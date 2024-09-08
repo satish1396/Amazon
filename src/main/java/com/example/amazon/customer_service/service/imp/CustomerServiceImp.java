@@ -135,6 +135,16 @@ public class CustomerServiceImp implements CustomerService {
         customerInfoRepository.save(customerInfo);
     }
 
+    @Override
+    public String blockCustomer(String customerId) {
+        CustomerInfo customerInfo = customerInfoRepository.findByCustomerHashId(customerId);
+        if (customerInfo.getStatus() == Status.BLOCK) {
+            log.error("User is already blocked");
+            throw new ValidationException("User is already blocked");
+        }
+        customerInfo.setStatus(Status.BLOCK);
+        return "User blocked successfully";
+    }
 }
 
 

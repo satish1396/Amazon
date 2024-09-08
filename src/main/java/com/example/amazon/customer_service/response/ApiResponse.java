@@ -1,6 +1,5 @@
-package com.example.amazon.customer_service;
+package com.example.amazon.customer_service.response;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.http.HttpStatus;
